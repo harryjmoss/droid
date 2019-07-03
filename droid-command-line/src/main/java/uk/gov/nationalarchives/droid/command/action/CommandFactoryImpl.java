@@ -32,9 +32,11 @@
 package uk.gov.nationalarchives.droid.command.action;
 
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.io.FileUtils;
 
 import uk.gov.nationalarchives.droid.command.FilterFieldCommand;
 import uk.gov.nationalarchives.droid.command.context.GlobalContext;
@@ -208,6 +210,7 @@ public class CommandFactoryImpl implements CommandFactory {
             throw new CommandLineSyntaxException(NO_RESOURCES_SPECIFIED);
         }
 
+
         final String[] destination = cli.getOptionValues(CommandLineParam.PROFILES.toString());
         if (destination == null || destination.length > 1) {
             throw new CommandLineSyntaxException("Must specify exactly one profile.");
@@ -221,6 +224,44 @@ public class CommandFactoryImpl implements CommandFactory {
 
         return command;
     }
+
+	/**
+     * {@inheritDoc}
+     */
+    @Override
+    public DroidCommand getProfileFileCommand(final CommandLine cli) throws CommandLineSyntaxException {
+        
+			
+		final String[] resourceFiles = cli.getOptionValues(CommandLineParam.RUN_PROFILE_FROM_FILE.toString());
+
+		// should now be a string of one (or more) input files...
+        if (resourceFiles.length == 0) {
+            throw new CommandLineSyntaxException(NO_RESOURCES_SPECIFIED);
+        }
+		// *bleep* here is where you need to add resorces...
+
+
+        final String[] destination = cli.getOptionValues(CommandLineParam.PROFILES.toString());
+        if (destination == null || destination.length > 1) {
+            throw new CommandLineSyntaxException("Must specify exactly one profile.");
+        }
+
+		// and then here make "resources" the contents of the resource file
+
+		String [] resources;
+		for(int res = 0; res < resourceFiles.length; res++){
+			resources[res] = StringUtils.split(FileUtils.readFileToString(new File(resourceFiles[res])), '\n');
+		}	
+
+        final ProfileFileRunCommand command = context.getProfileFileRunCommand();
+        command.setDestination(destination[0]);
+        command.setResources(resources);
+
+        command.setRecursive(cli.hasOption(CommandLineParam.RECURSIVE.toString()));
+
+        return command;
+    }
+
 
     /**
      * {@inheritDoc}

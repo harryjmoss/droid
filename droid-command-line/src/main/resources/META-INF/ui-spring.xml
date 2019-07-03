@@ -121,7 +121,15 @@
     	    <bean class="uk.gov.nationalarchives.droid.command.action.LocationResolver"/>
 	</property>
     </bean>
-    
+	
+	<bean id="profileFileRunCommand" class="uk.gov.nationalarchives.droid.command.action.ProfileFileRunCommand" scope="prototype">
+        <property name="signatureManager" ref="signatureManager"/>
+        <property name="profileManager" ref="profileManager"/>
+	<property name="locationResolver">
+    	    <bean class="uk.gov.nationalarchives.droid.command.action.LocationResolver"/>
+	</property>
+    </bean>
+ 
     <bean id="noProfileRunCommand" class="uk.gov.nationalarchives.droid.command.action.NoProfileRunCommand" scope="prototype">
         <!-- <property name="containerContentIdentifierFactory" ref="containerContentIdentifierFactory"/>
         <property name="archiveFormatResolver" ref="archivePuidResolver"/> -->

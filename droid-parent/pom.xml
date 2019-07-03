@@ -716,7 +716,11 @@ Copyright &copy; ${project.inceptionYear}-{currentYear} <a href="${project.organ
     </dependencyManagement>
 
     <pluginRepositories>
-        <pluginRepository>
+	<pluginRepository>
+	    <id>central</id>
+       	    <url>https://repo.maven.apache.org/maven2</url>	    
+	</pluginRepository>	
+	<pluginRepository>
             <id>sonatype-releases</id>
             <url>http://oss.sonatype.org/content/repositories/releases</url>
         </pluginRepository>

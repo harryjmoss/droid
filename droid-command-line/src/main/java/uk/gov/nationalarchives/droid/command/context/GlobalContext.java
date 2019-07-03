@@ -40,6 +40,7 @@ import uk.gov.nationalarchives.droid.command.action.ListAllSignatureFilesCommand
 import uk.gov.nationalarchives.droid.command.action.ListReportsCommand;
 import uk.gov.nationalarchives.droid.command.action.NoProfileRunCommand;
 import uk.gov.nationalarchives.droid.command.action.ProfileRunCommand;
+import uk.gov.nationalarchives.droid.command.action.ProfileFileRunCommand;
 import uk.gov.nationalarchives.droid.command.action.ReportCommand;
 import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalConfig;
 import uk.gov.nationalarchives.droid.export.interfaces.ExportOptions;
@@ -61,6 +62,12 @@ public interface GlobalContext extends AutoCloseable {
      * @return a profile run command
      */
     ProfileRunCommand getProfileRunCommand();
+
+	/**
+     * @return a profile-file run command
+     */
+    ProfileFileRunCommand getProfileFileRunCommand();
+
 
     /**
      * @return a no-profile run command

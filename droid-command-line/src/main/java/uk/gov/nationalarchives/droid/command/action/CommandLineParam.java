@@ -167,6 +167,15 @@ public enum CommandLineParam {
             return commandFactory.getProfileCommand(cli);
         }
     },
+ 
+	/** Runs a profile with the specified resources from an input file. */
+    RUN_PROFILE_FROM_FILE("aF", "profile-resources-file", true, -1, I18N.RUN_PROFILE_FROM_FILE_HELP, "resourceFile") {
+        @Override
+        public DroidCommand getCommand(CommandFactory commandFactory, CommandLine cli)
+            throws CommandLineSyntaxException {
+            return commandFactory.getProfileFileCommand(cli);
+        }
+    },
     
     /** Runs without a profile and with the specified resources. */
     RUN_NO_PROFILE("Nr", "no-profile-resource", true, -1, I18N.RUN_NO_PROFILE_HELP, "folder") {
@@ -289,7 +298,8 @@ public enum CommandLineParam {
         addTopLevelCommand(REPORT);
         addTopLevelCommand(LIST_FILTER_FIELD);
         addTopLevelCommand(RUN_PROFILE);
-        addTopLevelCommand(RUN_NO_PROFILE);
+        addTopLevelCommand(RUN_PROFILE_FROM_FILE);
+		addTopLevelCommand(RUN_NO_PROFILE);
         addTopLevelCommand(CHECK_SIGNATURE_UPDATE);
         addTopLevelCommand(DOWNLOAD_SIGNATURE_UPDATE);
         addTopLevelCommand(DEFAULT_SIGNATURE_VERSION);
