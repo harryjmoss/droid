@@ -84,7 +84,7 @@ public final class I18N {
     /** Run a profile from input file. */
     public static final String RUN_PROFILE_FROM_FILE_HELP = "profile_from_file.run.help";
     
-	/** Run without a profile. */
+    /** Run without a profile. */
     public static final String RUN_NO_PROFILE_HELP = "no_profile.run.help";
     
     /** Help for signature file. */

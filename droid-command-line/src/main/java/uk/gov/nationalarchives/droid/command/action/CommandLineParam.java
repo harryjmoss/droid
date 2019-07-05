@@ -168,7 +168,7 @@ public enum CommandLineParam {
         }
     },
  
-	/** Runs a profile with the specified resources from an input file. */
+    /** Runs a profile with the specified resources from an input file. */
     RUN_PROFILE_FROM_FILE("aF", "profile-resources-file", true, -1, I18N.RUN_PROFILE_FROM_FILE_HELP, "resourceFile") {
         @Override
         public DroidCommand getCommand(CommandFactory commandFactory, CommandLine cli)
@@ -299,7 +299,7 @@ public enum CommandLineParam {
         addTopLevelCommand(LIST_FILTER_FIELD);
         addTopLevelCommand(RUN_PROFILE);
         addTopLevelCommand(RUN_PROFILE_FROM_FILE);
-		addTopLevelCommand(RUN_NO_PROFILE);
+        addTopLevelCommand(RUN_NO_PROFILE);
         addTopLevelCommand(CHECK_SIGNATURE_UPDATE);
         addTopLevelCommand(DOWNLOAD_SIGNATURE_UPDATE);
         addTopLevelCommand(DEFAULT_SIGNATURE_VERSION);

@@ -91,7 +91,7 @@ public final class SpringUiContext implements GlobalContext {
         return context.getBean("profileRunCommand", ProfileRunCommand.class);
     }
 
-	/**
+    /**
      * {@inheritDoc}
      */
     @Override

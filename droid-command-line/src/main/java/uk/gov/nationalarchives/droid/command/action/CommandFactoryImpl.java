@@ -32,11 +32,14 @@
 package uk.gov.nationalarchives.droid.command.action;
 
 import java.io.PrintWriter;
-import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.io.FileUtils;
 
 import uk.gov.nationalarchives.droid.command.FilterFieldCommand;
 import uk.gov.nationalarchives.droid.command.context.GlobalContext;
@@ -213,7 +216,7 @@ public class CommandFactoryImpl implements CommandFactory {
 
         final String[] destination = cli.getOptionValues(CommandLineParam.PROFILES.toString());
         if (destination == null || destination.length > 1) {
-            throw new CommandLineSyntaxException("Must specify exactly one profile.");
+            throw new CommandLineSyntaxException("Must specify exactly one destination profile in this mode.");
         }
 
         final ProfileRunCommand command = context.getProfileRunCommand();
@@ -225,33 +228,40 @@ public class CommandFactoryImpl implements CommandFactory {
         return command;
     }
 
-	/**
+     /**
      * {@inheritDoc}
      */
     @Override
     public DroidCommand getProfileFileCommand(final CommandLine cli) throws CommandLineSyntaxException {
-        
-			
-		final String[] resourceFiles = cli.getOptionValues(CommandLineParam.RUN_PROFILE_FROM_FILE.toString());
+        final String[] resourceFiles = cli.getOptionValues(CommandLineParam.RUN_PROFILE_FROM_FILE.toString());
 
-		// should now be a string of one (or more) input files...
+        // should now be a string of one (or more) input files...
         if (resourceFiles.length == 0) {
             throw new CommandLineSyntaxException(NO_RESOURCES_SPECIFIED);
         }
-		// *bleep* here is where you need to add resorces...
-
-
+            // *bleep* here is where you need to add resorces...
         final String[] destination = cli.getOptionValues(CommandLineParam.PROFILES.toString());
         if (destination == null || destination.length > 1) {
             throw new CommandLineSyntaxException("Must specify exactly one profile.");
         }
-
-		// and then here make "resources" the contents of the resource file
-
-		String [] resources;
-		for(int res = 0; res < resourceFiles.length; res++){
-			resources[res] = StringUtils.split(FileUtils.readFileToString(new File(resourceFiles[res])), '\n');
-		}	
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < resourceFiles.length; i++) {
+            try {
+                BufferedReader in = new BufferedReader(new FileReader(resourceFiles[i]));
+                String str;
+                while ((str = in.readLine()) != null) {
+                    list.add(str);
+                }
+            }   catch (IOException e) {
+                    throw new CommandLineSyntaxException("Must provide some input files!");
+                }
+        }
+        String[] resources = list.toArray(new String[0]);
+        // and then here make "resources" the contents of the resource file
+        //    final String [] resources;
+        //    for(int res = 0; res < resourceFiles.length; res++){
+        //        resources[res] = StringUtils.split(FileUtils.readFileToString(new File(resourceFiles[res])), '\n');
+        //    }
 
         final ProfileFileRunCommand command = context.getProfileFileRunCommand();
         command.setDestination(destination[0]);

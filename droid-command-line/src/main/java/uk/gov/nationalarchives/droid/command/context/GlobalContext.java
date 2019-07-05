@@ -63,7 +63,7 @@ public interface GlobalContext extends AutoCloseable {
      */
     ProfileRunCommand getProfileRunCommand();
 
-	/**
+    /**
      * @return a profile-file run command
      */
     ProfileFileRunCommand getProfileFileRunCommand();
